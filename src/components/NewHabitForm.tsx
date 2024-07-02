@@ -19,11 +19,13 @@ const availableWeekDays = [
   'Sábado'
 ]
 
+// TODO: transformar em server component
 export function NewHabitForm({ onClose }: INewHabitFormProps) {
   const [title, setTitle] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
   const [isSubmmiting, setIsSubmmiting] = useState(false)
 
+  // TODO: mover para um serviço
   const createNewHabit = async (event: FormEvent) => {
     event.preventDefault()
     setIsSubmmiting(true)
@@ -41,6 +43,7 @@ export function NewHabitForm({ onClose }: INewHabitFormProps) {
       onClose()
     } catch (err) {
       // aplicar o sentry
+      // TODO: por enquanto criar uma class que me enviar os erros no telegram
       console.log(err)
     } finally {
       setTitle('')
@@ -49,6 +52,7 @@ export function NewHabitForm({ onClose }: INewHabitFormProps) {
     }
   }
 
+  // TODO: mover para um serviço
   const handleToggleWeekDay = (weekDay: number) => {
     if (weekDays.includes(weekDay)) {
       const newHabitWeekDays = weekDays.filter((day) => day !== weekDay)

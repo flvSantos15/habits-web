@@ -25,6 +25,7 @@ const amountOfDaysToFill = minimunSummaryDatesSize - summaryDates.length
 export function SummaryTable() {
   const [habits, setHabits] = useState<HabitSummaryProps[]>([])
 
+  // TODO: mover para um serviço
   async function getHabits() {
     const { data } = await api.get<HabitSummaryProps[]>('/summary')
 

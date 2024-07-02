@@ -25,6 +25,7 @@ interface HabitsInfoProps {
 export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
   const [habitsInfo, setHabitsInfo] = useState<HabitsInfoProps>()
 
+  // TODO: mover isso para um serviço
   const handleGetHabitDay = async () => {
     try {
       const { data } = await api.get('/day', {
@@ -38,6 +39,7 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
     }
   }
 
+  // TODO: mover para um serviço
   const handleToggleHabit = async (habitId: string) => {
     const isHabitAlreadyCompleted =
       habitsInfo!.completedHabits.includes(habitId)
@@ -63,6 +65,7 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
     onCompletedChanged(completedHabits.length)
   }
 
+  // TODO: tentar converter em server component
   useEffect(() => {
     handleGetHabitDay()
   }, [])
