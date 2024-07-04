@@ -3,6 +3,10 @@ Pode ser em um sqlite.
 Pode ser no firebase.
 Verificar a persistência do localStorage.
 
-Preciso criar uma class para guardar em serviços diferentes.
+=======================
+SQlite
 
-As funções serão movidas para o services.
+Serviçõs:
+Criar um habito
+Listar todos os habitos
+Marcar um hábito como concluído
