@@ -1,19 +1,9 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 
-import { api } from '@/lib/axios'
 import { generateDatesFromYearBeginning } from '../utils/generate-dates-from-year-beginning'
 
 import { HabitDay } from './HabitDay'
-
-interface HabitSummaryProps {
-  amount: number
-  completed: number
-  date: string
-  id: string
-}
+import { SummaryService } from '@/services/summary.service'
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 
@@ -22,19 +12,10 @@ const summaryDates = generateDatesFromYearBeginning()
 const minimunSummaryDatesSize = 18 * 7 // 18 weeks
 const amountOfDaysToFill = minimunSummaryDatesSize - summaryDates.length
 
-export function SummaryTable() {
-  const [habits, setHabits] = useState<HabitSummaryProps[]>([])
+export async function SummaryTable() {
+  const { getSummary } = new SummaryService()
 
-  // TODO: mover para um serviço
-  async function getHabits() {
-    const { data } = await api.get<HabitSummaryProps[]>('/summary')
-
-    setHabits(data)
-  }
-
-  useEffect(() => {
-    getHabits()
-  }, [])
+  const habits = await getSummary()
 
   return (
     <div className="w-full flex">

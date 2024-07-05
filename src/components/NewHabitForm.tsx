@@ -2,8 +2,7 @@ import { FormEvent, useState } from 'react'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'phosphor-react'
 import { api } from '@/lib/axios'
-import { prisma } from '@/lib/prisma'
-import dayjs from 'dayjs'
+import { createNewHabit } from '@/services/server-actions/habit.action'
 
 interface INewHabitFormProps {
   onClose: () => void
@@ -24,33 +23,6 @@ export function NewHabitForm({ onClose }: INewHabitFormProps) {
   const [title, setTitle] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
   const [isSubmmiting, setIsSubmmiting] = useState(false)
-
-  // TODO: mover para um serviço
-  const createNewHabit = async (event: FormEvent) => {
-    event.preventDefault()
-    setIsSubmmiting(true)
-
-    try {
-      if (!title || weekDays.length === 0) {
-        return
-      }
-
-      await api.post(`/habits?title=${title}&weekDays=${weekDays}`, {
-        title,
-        weekDays
-      })
-
-      onClose()
-    } catch (err) {
-      // aplicar o sentry
-      // TODO: por enquanto criar uma class que me enviar os erros no telegram
-      console.log(err)
-    } finally {
-      setTitle('')
-      setWeekDays([])
-      setIsSubmmiting(false)
-    }
-  }
 
   // TODO: mover para um serviço
   const handleToggleWeekDay = (weekDay: number) => {
