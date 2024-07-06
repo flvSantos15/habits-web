@@ -1,8 +1,7 @@
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'phosphor-react'
-import { api } from '@/lib/axios'
-import { createNewHabit } from '@/services/server-actions/habit.action'
+import { HabitService } from '@/services/habit.service'
 
 interface INewHabitFormProps {
   onClose: () => void
@@ -18,13 +17,36 @@ const availableWeekDays = [
   'Sábado'
 ]
 
-// TODO: transformar em server component
 export function NewHabitForm({ onClose }: INewHabitFormProps) {
+  const { createHabit } = new HabitService()
+
   const [title, setTitle] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
   const [isSubmmiting, setIsSubmmiting] = useState(false)
 
-  // TODO: mover para um serviço
+  const handleCreateNewHabit = async () => {
+    setIsSubmmiting(true)
+
+    try {
+      if (!title || weekDays.length === 0) {
+        return
+      }
+
+      await createHabit({
+        title,
+        weekDays
+      })
+    } catch (err) {
+      // aplicar o sentry
+      console.log(err)
+    } finally {
+      setTitle('')
+      setWeekDays([])
+      setIsSubmmiting(false)
+      onClose()
+    }
+  }
+
   const handleToggleWeekDay = (weekDay: number) => {
     if (weekDays.includes(weekDay)) {
       const newHabitWeekDays = weekDays.filter((day) => day !== weekDay)
@@ -36,10 +58,11 @@ export function NewHabitForm({ onClose }: INewHabitFormProps) {
   }
 
   return (
-    <form onSubmit={createNewHabit} className="w-full flex flex-col mt-6">
+    <form action={handleCreateNewHabit} className="w-full flex flex-col mt-6">
       <label htmlFor="title" className="font-semibold leading-tight">
         Qual seu comprometimento?
       </label>
+
       <input
         type="text"
         id="title"

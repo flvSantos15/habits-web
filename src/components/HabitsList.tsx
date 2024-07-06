@@ -1,43 +1,21 @@
-'use client'
-
 import * as Checkbox from '@radix-ui/react-checkbox'
 import dayjs from 'dayjs'
 import { Check } from 'phosphor-react'
-import { useEffect, useState } from 'react'
-import { api } from '../lib/axios'
+import { api } from '@/lib/axios'
+import { DayService } from '@/services/day.service'
 
 interface HabitsListProps {
   date: Date
   onCompletedChanged: (completed: number) => void
 }
 
-type PossibleHabitsProps = {
-  id: string
-  title: string
-  createdAt: string
-}
+export async function HabitsList({
+  date,
+  onCompletedChanged
+}: HabitsListProps) {
+  const { getDays } = new DayService()
 
-interface HabitsInfoProps {
-  completedHabits: string[]
-  possibleHabits: PossibleHabitsProps[]
-}
-
-export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
-  const [habitsInfo, setHabitsInfo] = useState<HabitsInfoProps>()
-
-  // TODO: mover isso para um serviço
-  const handleGetHabitDay = async () => {
-    try {
-      const { data } = await api.get('/day', {
-        params: {
-          date: date.toISOString()
-        }
-      })
-      setHabitsInfo(data)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  let habitsInfo = await getDays(date.toISOString())
 
   // TODO: mover para um serviço
   const handleToggleHabit = async (habitId: string) => {
@@ -57,18 +35,13 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
       completedHabits = [...habitsInfo!.completedHabits, habitId]
     }
 
-    setHabitsInfo({
+    habitsInfo = {
       possibleHabits: habitsInfo!.possibleHabits,
       completedHabits
-    })
+    }
 
     onCompletedChanged(completedHabits.length)
   }
-
-  // TODO: tentar converter em server component
-  useEffect(() => {
-    handleGetHabitDay()
-  }, [])
 
   const isDateInPast = dayjs(date).endOf('day').isBefore(new Date())
 

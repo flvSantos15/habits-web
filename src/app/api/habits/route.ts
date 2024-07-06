@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import dayjs from 'dayjs'
 import { prisma } from '@/lib/prisma'
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   if (req.method === 'POST') {
     const { searchParams } = new URL(req.url)
     const title = searchParams.get('title')

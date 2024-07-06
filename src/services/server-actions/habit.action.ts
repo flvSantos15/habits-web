@@ -1,33 +1,86 @@
-import { FormEvent } from 'react'
-import { HabitService } from '../habit.service'
+'use server'
 
-export async function createNewHabit(event: FormEvent) {
-  const { createHabit } = new HabitService()
+import { prisma } from '@/lib/prisma'
 
-  /**
-   * Habilitar o react hook form
-   * Pegar os dados no props
-   */
+interface ICreateNewHabit {
+  today: Date
+  title: string
+  weekDays: number[]
+}
 
-  event.preventDefault()
-  // setIsSubmmiting(true)
+interface IToggleHabit {
+  habitID: string
+  today: Date
+}
 
+export async function createNewHabit({
+  title,
+  weekDays,
+  today
+}: ICreateNewHabit) {
   try {
-    // if (!title || weekDays.length === 0) {
-    //   return
-    // }
-
-    await createHabit({
-      title: '',
-      weekDays: []
+    await prisma.habit.create({
+      data: {
+        title,
+        created_at: today,
+        weekDays: {
+          create: weekDays.map((weekDay) => {
+            return {
+              week_day: weekDay
+            }
+          })
+        }
+      }
     })
 
-    // onClose()
+    return { message: 'Created sucessfully!' }
   } catch (err) {
-    // aplicar o sentry
-    // TODO: por enquanto criar uma class que me enviar os erros no telegram
-    console.log(err)
-  } finally {
-    // setIsSubmmiting(false)
+    throw new Error(`Internal server error ${err}`)
   }
+}
+
+export async function toggleHabit({ habitID, today }: IToggleHabit) {
+  let day = await prisma.day.findUnique({
+    where: {
+      date: today
+    }
+  })
+
+  if (!day) {
+    day = await prisma.day.create({
+      data: {
+        date: today
+      }
+    })
+  }
+
+  const dayHabit = await prisma.dayHabit.findUnique({
+    where: {
+      day_id_habit_id: {
+        day_id: day.id,
+        habit_id: habitID
+      }
+    }
+  })
+
+  // if there's completed habit
+  if (dayHabit) {
+    // i need to uncomplete this habit
+    await prisma.dayHabit.delete({
+      where: {
+        id: dayHabit.id
+      }
+    })
+  } else {
+    // if there ins't
+    // i must complete it
+    await prisma.dayHabit.create({
+      data: {
+        day_id: day.id,
+        habit_id: habitID
+      }
+    })
+  }
+
+  return { message: 'Updated sucessfully' }
 }

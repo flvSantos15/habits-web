@@ -1,12 +1,10 @@
-'use client'
-
 import * as Popover from '@radix-ui/react-popover'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 
 import { ProgressBar } from './ProgressBar'
 import { HabitsList } from './HabitsList'
-import { useState } from 'react'
+// import { useState } from 'react'
 
 interface HabitDayProps {
   date: Date
@@ -14,12 +12,16 @@ interface HabitDayProps {
   amount?: number
 }
 
+// Preciso pensar numa forma de buscar os completos
+// Posso criar um serviço pra isso
+
 export function HabitDay({
   defaultCompleted = 0,
   amount = 0,
   date
 }: HabitDayProps) {
-  const [completed, setCompleted] = useState(defaultCompleted)
+  // const [completed, setCompleted] = useState(defaultCompleted)
+  let completed = defaultCompleted
 
   const completedPercentage =
     amount > 0 ? Math.round((completed / amount) * 100) : 0
@@ -27,8 +29,9 @@ export function HabitDay({
   const dayAndMonth = dayjs(date).format('DD/MM')
   const dayOfWeek = dayjs(date).format('dddd')
 
-  const handleCompletedChange = (completed: number) => {
-    setCompleted(completed)
+  const handleCompletedChange = (item: number) => {
+    completed = item
+    // setCompleted(completed)
   }
 
   return (
