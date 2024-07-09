@@ -32,7 +32,7 @@ export async function SummaryTable() {
         })}
       </div>
 
-      <div className="max-w-full overflow-scroll">
+      <div className="max-w-full overflow-x-scroll">
         <div className="grid grid-rows-7 grid-flow-col gap-3">
           {habits.length > 0 &&
             summaryDates.map((date) => {

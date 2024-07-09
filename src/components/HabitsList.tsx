@@ -1,29 +1,47 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+'use client'
+
+import { useEffect, useState } from 'react'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import dayjs from 'dayjs'
 import { Check } from 'phosphor-react'
-import { api } from '@/lib/axios'
 import { DayService } from '@/services/day.service'
+import { HabitService } from '@/services/habit.service'
+
+type TPossibleHabits = {
+  id: string
+  title: string
+  createdAt: Date
+}
+
+interface IHabits {
+  possibleHabits: TPossibleHabits[]
+  completedHabits: string[]
+}
 
 interface HabitsListProps {
   date: Date
   onCompletedChanged: (completed: number) => void
 }
 
-export async function HabitsList({
-  date,
-  onCompletedChanged
-}: HabitsListProps) {
+export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
   const { getDays } = new DayService()
+  const { toggleHabit } = new HabitService()
 
-  let habitsInfo = await getDays(date.toISOString())
+  const [habitsInfo, setHabitsInfo] = useState<IHabits>()
+
+  const getDaysData = async () => {
+    const data = await getDays(date.toISOString())
+
+    setHabitsInfo(data)
+  }
 
   // TODO: mover para um serviço
   const handleToggleHabit = async (habitId: string) => {
     const isHabitAlreadyCompleted =
       habitsInfo!.completedHabits.includes(habitId)
 
-    // await api.patch(`/habits/${habitId}/toggle`)
-    await api.patch(`/habits/toggle?habitId=${habitId}`)
+    await toggleHabit(habitId)
 
     let completedHabits: string[] = []
 
@@ -35,24 +53,28 @@ export async function HabitsList({
       completedHabits = [...habitsInfo!.completedHabits, habitId]
     }
 
-    habitsInfo = {
+    setHabitsInfo({
       possibleHabits: habitsInfo!.possibleHabits,
       completedHabits
-    }
+    })
 
     onCompletedChanged(completedHabits.length)
   }
 
   const isDateInPast = dayjs(date).endOf('day').isBefore(new Date())
 
+  useEffect(() => {
+    getDaysData()
+  }, [])
+
   return (
     <div className="mt-6 flex flex-col gap-3">
       {habitsInfo?.possibleHabits.map((habit) => {
         return (
           <Checkbox.Root
-            key={habit.id}
-            onCheckedChange={() => handleToggleHabit(habit.id)}
-            checked={habitsInfo.completedHabits.includes(habit.id)}
+            key={habit?.id}
+            onCheckedChange={() => handleToggleHabit(habit?.id)}
+            checked={habitsInfo?.completedHabits.includes(habit?.id)}
             disabled={isDateInPast}
             className="flex items-center gap-3 group focus:outline-none disabled:cursor-not-allowed"
           >
@@ -63,7 +85,7 @@ export async function HabitsList({
             </div>
 
             <span className="font-semibold text-xl text-white leading-tight group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
-              {habit.title}
+              {habit?.title}
             </span>
           </Checkbox.Root>
         )
