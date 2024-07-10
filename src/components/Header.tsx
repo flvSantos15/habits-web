@@ -21,14 +21,14 @@ export function Header() {
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto flex items-center justify-between">
+    <div className="w-full max-w-3xl mx-auto px-1 flex items-center justify-between">
       <Image src={logoImg} alt="Habits" />
 
       <Dialog.Root open={isModalOpen}>
         <Dialog.Trigger
           type="button"
           onClick={handleOpenModal}
-          className="border border-violet-500 font-semibold rounded-lg px-6 py-4 flex items-center gap-3 hover:border-violet-300 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-background"
+          className="border border-violet-500 font-semibold rounded-lg px-4 lg-px-6 py-3 lg-py-4 flex items-center gap-3 hover:border-violet-300 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-background"
         >
           <Plus size={20} className="text-violet-500" />
           Novo hábito
