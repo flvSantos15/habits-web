@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import dayjs from 'dayjs'
 
 import { ProgressBar } from './ProgressBar'
-import { HabitsList } from './HabitsList'
+import { PossibleHabitsList } from './PossibleHabitsList'
 
 import { useState } from 'react'
 
@@ -61,7 +61,10 @@ export function HabitDay({
 
           <ProgressBar progress={completedPercentage} />
 
-          <HabitsList date={date} onCompletedChanged={handleCompletedChange} />
+          <PossibleHabitsList
+            date={date}
+            onCompletedChanged={handleCompletedChange}
+          />
 
           <Popover.Arrow height={8} width={16} className="fill-zinc-900" />
         </Popover.Content>

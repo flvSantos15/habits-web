@@ -11,7 +11,7 @@ export default function ConnectCalendar() {
   return (
     <div className="">
       <header>
-        <h2>Conecte sua agenda!</h2>
+        <h2>Conecte sua conta!</h2>
         <h4>
           Conecte o seu calendário para verificar automaticamente as horas
           ocupadas e os novos eventos à medida em que são agendados.
@@ -21,9 +21,7 @@ export default function ConnectCalendar() {
       <div>
         <div>
           <p>Google Calendar</p>
-          <button
-            onClick={() => handleAuthenticate()}
-          >
+          <button onClick={() => handleAuthenticate()}>
             Conectar
             <ArrowRight />
           </button>

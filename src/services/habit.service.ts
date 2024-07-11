@@ -1,5 +1,9 @@
 import dayjs from 'dayjs'
-import { createNewHabit, toggleHabit } from './server-actions/habit.action'
+import {
+  createNewHabit,
+  deleteHabit,
+  toggleHabit
+} from './server-actions/habit.action'
 
 export class HabitService {
   async createHabit(input: { title: string; weekDays: number[] }) {
@@ -19,4 +23,15 @@ export class HabitService {
 
     await toggleHabit({ habitID: habitId, today })
   }
+
+  async deleteHabit(habitID: string) {
+    await deleteHabit(habitID)
+  }
+
+  // TODO:
+  /**
+   * Criar uma função de editar o hábito
+   * Posso querer renomear o hábito
+   * Posso querer incluir em mais algun dia ou remover
+   */
 }

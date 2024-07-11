@@ -84,3 +84,25 @@ export async function toggleHabit({ habitID, today }: IToggleHabit) {
 
   return { message: 'Updated sucessfully' }
 }
+
+export async function deleteHabit(habitID: string) {
+  await prisma.habitWeekDays.deleteMany({
+    where: {
+      habit_id: habitID
+    }
+  })
+
+  await prisma.dayHabit.deleteMany({
+    where: {
+      habit_id: habitID
+    }
+  })
+
+  await prisma.habit.delete({
+    where: {
+      id: habitID
+    }
+  })
+
+  return { message: 'Updated sucessfully' }
+}

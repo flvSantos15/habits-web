@@ -1,13 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+
 import * as Dialog from '@radix-ui/react-dialog'
 
 import { Plus, X } from 'phosphor-react'
 
-import logoImg from '../assets/logo.svg'
 import { NewHabitForm } from './NewHabitForm'
+import { Logo } from './Logo'
 
 export function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -20,9 +20,15 @@ export function Header() {
     setIsModalOpen(false)
   }
 
+  // TODO:
+  /**
+   * Remover o logo daqui
+   * Colocar para o canto direito
+   */
+
   return (
     <div className="w-full max-w-3xl mx-auto px-1 flex items-center justify-between">
-      <Image src={logoImg} alt="Habits" />
+      <Logo />
 
       <Dialog.Root open={isModalOpen}>
         <Dialog.Trigger

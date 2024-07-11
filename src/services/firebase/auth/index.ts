@@ -1,4 +1,9 @@
-import { User, signInWithPopup, GoogleAuthProvider, CustomParameters } from 'firebase/auth'
+import {
+  User,
+  signInWithPopup,
+  GoogleAuthProvider,
+  CustomParameters
+} from 'firebase/auth'
 // import {
 //   doc,
 //   setDoc,
@@ -21,37 +26,40 @@ import { db, auth, googleProvider } from '@/config/firebase'
 //   // if (customOAuthParameters) {
 //   //   provider.setCustomParameters(customOAuthParameters);
 //   // }
-  
+
 //   return provider;
 // }
 
 export async function signIn() {
-
   // TODO: preciso redirecionar o usuario no caso de sucesso.
   // TODO: preciso capturar o erro e guardar caso haja.
 
   return await signInWithPopup(auth, googleProvider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      const token = credential.accessToken
       // The signed-in user info.
-      const user = result.user;
+      const user = result.user
+
+      // user.displayName
+      // user.email
+      // user.uid
+      // user.photoURL
+      // user.refreshToken
 
       console.log('user', {
         token,
         user
       })
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
       // The email of the user's account used.
-      const email = error.customData.email;
+      const email = error.customData.email
       // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
+      const credential = GoogleAuthProvider.credentialFromError(error)
 
       console.log('errors', {
         errorCode,
@@ -60,5 +68,5 @@ export async function signIn() {
         credential
       })
       // ...
-    });
+    })
 }
