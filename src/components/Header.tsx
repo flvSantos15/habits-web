@@ -20,15 +20,9 @@ export function Header() {
     setIsModalOpen(false)
   }
 
-  // TODO:
-  /**
-   * Remover o logo daqui
-   * Colocar para o canto direito
-   */
-
   return (
-    <div className="w-full max-w-3xl mx-auto px-1 flex items-center justify-between">
-      <Logo />
+    <div className="w-full mx-auto px-1 flex items-center justify-end">
+      {/* <Logo /> */}
 
       <Dialog.Root open={isModalOpen}>
         <Dialog.Trigger

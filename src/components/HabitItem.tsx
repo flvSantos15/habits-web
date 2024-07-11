@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 
@@ -6,38 +8,23 @@ import { EditHabitForm } from './EditHabitForm'
 import { PencilSimple, Trash, X } from 'phosphor-react'
 
 interface TodoItemProps {
-  isCompleted: boolean
-  taskTitle: string
-  taskId: number
-  onCheckTask: () => void
-  onRemoveTask: () => void
+  name: string
+  onRemoveTask?: () => void
 }
 
-export function HabitItem({
-  isCompleted,
-  taskId,
-  taskTitle,
-  onCheckTask,
-  onRemoveTask
-}: TodoItemProps) {
+export function HabitItem({ name, onRemoveTask }: TodoItemProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [isAlertModalOpen, setIsAlerModalOpen] = useState(false)
 
   const handleOpenDialog = () => {
-    return !isCompleted
-      ? setIsDialogOpen(!isDialogOpen)
-      : setIsAlerModalOpen(true)
+    setIsDialogOpen(!isDialogOpen)
   }
 
   return (
     <>
-      <div
-        data-cy="taskExists"
-        className="flex justify-between items-center p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg text-xl sm:text-base"
-      >
+      <div className="flex justify-between items-center p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg text-xl sm:text-base cursor-pointer">
         <div className="flex items-center gap-3">
-          <p className="font-[Inter] font-normal text-sm text-[#f2f2f2] flex-1 w-full cursor-pointer">
-            {taskTitle}
+          <p className="font-[Inter] font-normal text-sm text-[#f2f2f2] flex-1 w-full">
+            {name}
           </p>
         </div>
 

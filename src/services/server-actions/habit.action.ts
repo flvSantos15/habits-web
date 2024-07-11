@@ -13,6 +13,16 @@ interface IToggleHabit {
   today: Date
 }
 
+export async function getAllHabits() {
+  try {
+    const habits = await prisma.habit.findMany({})
+
+    return habits
+  } catch (err) {
+    throw new Error(`Internal server error ${err}`)
+  }
+}
+
 export async function createNewHabit({
   title,
   weekDays,

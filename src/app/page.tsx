@@ -4,10 +4,10 @@ import { SummaryTable } from '@/components/SummaryTable'
 
 export default function Home() {
   return (
-    <main className="w-full h-screen flex justify-center items-center border border-solid border-[red]">
+    <main className="w-full h-screen flex items-center">
       <Sidebar />
 
-      <div className="w-[80%] flex flex-col gap-16 px-1 lg-pl-6">
+      <div className="max-w-[80%] h-full flex flex-col gap-16 px-1 lg-pl-6 pt-14">
         <Header />
 
         <SummaryTable />

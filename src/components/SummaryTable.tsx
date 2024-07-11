@@ -18,13 +18,13 @@ export async function SummaryTable() {
   const habits = await getSummary()
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex py-4">
       <div className="grid grid-rows-7 grid-flow-row gap-3">
         {weekDays.map((day, index) => {
           return (
             <div
               key={`${day}-${index}`}
-              className="text-zinc-400 text-xl h-10 w-10 font-bold flex items-center justify-center"
+              className="text-zinc-200 text-xl h-10 w-10 font-bold flex items-center justify-center"
             >
               {day}
             </div>
@@ -32,6 +32,7 @@ export async function SummaryTable() {
         })}
       </div>
 
+      {/* TODO: change this scroll for the scroll comming from radix @radix-ui/react-scroll-area */}
       <div className="max-w-full overflow-x-scroll">
         <div className="grid grid-rows-7 grid-flow-col gap-3">
           {habits.length > 0 &&

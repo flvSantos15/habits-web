@@ -1,5 +1,11 @@
 'use client'
 
+// TODO:
+/**
+ * Fazer um formulário com login social
+ * Quando sucesso, redirecionar o usuário para a página principal
+ */
+
 import { ArrowRight } from 'phosphor-react'
 import { signIn } from '@/services/firebase/auth'
 

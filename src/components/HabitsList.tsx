@@ -1,55 +1,37 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-
-// import { TTask, useTask } from '../../context/useTask'
+import { HabitService } from '@/services/habit.service'
 
 import { HabitItem } from './HabitItem'
 
-export function TodoList() {
-  // const { task, removeTask } = useTask()
+// TODO:
+/**
+ * Listar todos os hábitos aqui
+ */
 
-  // const [todo, setTodo] = useState<TTask[]>([])
-  // const [completedTodo, setCompletedTodo] = useState<TTask[]>([])
+export async function HabitList() {
+  const { getAllHabits, deleteHabit } = new HabitService()
 
-  // const handleRemoveTask = (id: number) => {
-  //   const newTaskList = todo.filter((t) => t.id !== id)
+  const habits = await getAllHabits()
 
-  //   setTodo(newTaskList)
-  //   removeTask(id)
+  // async function handleDeleteHabit(id: string) {
+  //   await deleteHabit(id)
   // }
-
-  // useEffect(() => {
-  //   setTodo(task)
-  // }, [task])
-
-  // useEffect(() => {
-  //   setCompletedTodo(
-  //     todo.filter((i) => {
-  //       return i.isCompleted === true
-  //     })
-  //   )
-  // }, [todo])
 
   return (
     <div className="flex flex-col items-start m-auto my-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
-      <div className="flex flex-col justify-center items-center gap-4 w-full rounded-lg border-t border-t-solid border-t-[#333333]">
-        <p className="font-[Inter] font-normal text-sm text-[#f2f2f2] flex-1 w-full cursor-pointer">
-          Beber água
-        </p>
+      <header className="text-2xl font-semibold text-purple-600">
+        Lista de Hábitos
+      </header>
 
-        {/* {todo.map((t) => {
+      <div className="flex flex-col justify-center items-center gap-4 w-full rounded-lg border-t border-t-solid border-t-[#333333]">
+        {habits.map((habit) => {
           return (
             <HabitItem
-              key={t.id}
-              taskTitle={t.name}
-              taskId={t.id}
-              isCompleted={t.isCompleted}
-              onCheckTask={() => handleCheckTask(t)}
-              onRemoveTask={() => handleRemoveTask(t.id)}
+              key={habit.id}
+              name={habit.title}
+              // onRemoveTask={() => handleDeleteHabit(habit.id)}
             />
           )
-        })} */}
+        })}
       </div>
     </div>
   )

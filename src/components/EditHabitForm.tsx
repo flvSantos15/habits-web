@@ -18,6 +18,8 @@ const availableWeekDays = [
 ]
 
 export function EditHabitForm({ onClose }: INewHabitFormProps) {
+  // TODO: change this service
+  // TODO: create a service to search for a single habit
   const { createHabit } = new HabitService()
 
   const [title, setTitle] = useState('')

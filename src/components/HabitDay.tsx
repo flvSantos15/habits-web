@@ -38,7 +38,7 @@ export function HabitDay({
         className={clsx(
           'w-10 h-10 border-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-background',
           {
-            'bg-zinc-900 border-zinc-800': completedPercentage === 0,
+            'bg-gray-900 border-zinc-800': completedPercentage === 0,
             'bg-violet-900 border-zinc-900':
               completedPercentage > 0 && completedPercentage < 20,
             'bg-violet-800 border-violet-600':

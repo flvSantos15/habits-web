@@ -1,11 +1,18 @@
 import dayjs from 'dayjs'
 import {
+  getAllHabits,
   createNewHabit,
   deleteHabit,
   toggleHabit
 } from './server-actions/habit.action'
 
 export class HabitService {
+  async getAllHabits() {
+    const data = await getAllHabits()
+
+    return data
+  }
+
   async createHabit(input: { title: string; weekDays: number[] }) {
     const today = dayjs().startOf('day').toDate()
 
