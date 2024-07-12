@@ -60,7 +60,7 @@ export function EditHabitForm({ onClose }: INewHabitFormProps) {
   }
 
   return (
-    <form action={handleCreateNewHabit} className="w-full flex flex-col mt-6">
+    <form action={handleCreateNewHabit} className="w-full flex flex-col mt-2">
       <label htmlFor="title" className="font-semibold leading-tight">
         Qual seu comprometimento?
       </label>

@@ -2,21 +2,29 @@
 
 import { useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
 import { EditHabitForm } from './EditHabitForm'
 
 import { PencilSimple, Trash, X } from 'phosphor-react'
+import { RemoveHabit } from './RemoveHabitModal'
 
 interface TodoItemProps {
+  id: string
   name: string
-  onRemoveTask?: () => void
+  onRemoveTask?: (id: string) => void
 }
 
-export function HabitItem({ name, onRemoveTask }: TodoItemProps) {
+export function HabitItem({ id, name, onRemoveTask }: TodoItemProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false)
 
   const handleOpenDialog = () => {
     setIsDialogOpen(!isDialogOpen)
+  }
+
+  const handleOpenDeleteHabit = () => {
+    setIsRemoveDialogOpen(!isRemoveDialogOpen)
   }
 
   return (
@@ -58,13 +66,47 @@ export function HabitItem({ name, onRemoveTask }: TodoItemProps) {
             </Dialog.Portal>
           </Dialog.Root>
 
-          <button
-            onClick={onRemoveTask}
-            data-cy="removeTaskButton"
-            className="flex items-center justify-center w-[1.5rem] h-[1.5rem]"
+          <AlertDialog.Root
+            open={isRemoveDialogOpen}
+            onOpenChange={handleOpenDeleteHabit}
           >
-            <Trash color="#fa0404" />
-          </button>
+            <AlertDialog.Trigger
+              type="button"
+              data-cy="removeTaskButton"
+              className="flex items-center justify-center w-[1.5rem] h-[1.5rem]"
+            >
+              <Trash color="#fa0404" />
+            </AlertDialog.Trigger>
+
+            <AlertDialog.Portal>
+              <AlertDialog.Overlay className="w-screen h-screen bg-black/80 fixed inset-0" />
+
+              <AlertDialog.Content className="absolute flex flex-col gap-4 p-10 bg-zinc-900 rounded-2xl w-full max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <AlertDialog.Title>Tem certeza?</AlertDialog.Title>
+
+                {/* <RemoveHabit onClose={() => setIsRemoveDialogOpen(false)} /> */}
+
+                <div className="w-full flex flex-col gap-2 mt-1">
+                  <h5 className="font-semibold leading-tight">
+                    Esse hábito não poderá ser mais acessível.
+                  </h5>
+
+                  <div className="flex gap-4 my-1 justify-end">
+                    <button className="bg-gray-200 rounded-md py-0 px-4 text-base font-medium h-9">
+                      Cancelar
+                    </button>
+
+                    <button
+                      onClick={() => onRemoveTask(id)}
+                      className="bg-red-700 rounded-md py-0 px-4 text-base font-medium h-9"
+                    >
+                      Sim, Excluir hábito
+                    </button>
+                  </div>
+                </div>
+              </AlertDialog.Content>
+            </AlertDialog.Portal>
+          </AlertDialog.Root>
         </div>
       </div>
     </>

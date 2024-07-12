@@ -12,9 +12,9 @@ export async function HabitList() {
 
   const habits = await getAllHabits()
 
-  // async function handleDeleteHabit(id: string) {
-  //   await deleteHabit(id)
-  // }
+  async function handleDeleteHabit(id: string) {
+    await deleteHabit(id)
+  }
 
   return (
     <div className="flex flex-col items-start m-auto my-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
@@ -27,8 +27,9 @@ export async function HabitList() {
           return (
             <HabitItem
               key={habit.id}
+              id={habit.id}
               name={habit.title}
-              // onRemoveTask={() => handleDeleteHabit(habit.id)}
+              onRemoveTask={() => handleDeleteHabit(habit.id)}
             />
           )
         })}
