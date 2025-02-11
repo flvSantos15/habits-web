@@ -2,13 +2,12 @@ Todo:
 
 [ ] - Subir para a produção
 [X] - Aplicar responsividade
-[ ] - Habilitar login
-[ ] - Aplicar Testes
-[ ] - Aplicar observabilidade
-[ ] - Poder editar um hábito
-[ ] - Poder excluir um hábito
-[ ] - Página de settings
-[ ] - Configurar as cores
+[ ] - Habilitar login social
+[ ] - Aplicar Testes com playwriting
+[ ] - Aplicar observabilidade com sentry
+
+Próximos passos:
+Verifica
 
 Método de login
 

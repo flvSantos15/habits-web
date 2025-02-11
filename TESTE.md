@@ -1,6 +1,6 @@
 Funcionalidades:
 
-Testar os serviços com jest
+Testar os serviços com o playwriting
 
 Criar Hábito
 Editar Hábito
