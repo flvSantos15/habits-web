@@ -13,9 +13,28 @@ interface IToggleHabit {
   today: Date
 }
 
+type Habit = Partial<ICreateNewHabit> & {
+  id: string
+}
+
+const habits: Habit[] = [
+  {
+    id: '1',
+    title: 'Beber 2L de agua',
+    today: new Date('2023-02-11'),
+    weekDays: [0, 1, 2, 3, 4, 5, 6]
+  },
+  {
+    id: '1',
+    title: 'Beber 2L de agua',
+    today: new Date('2023-02-10'),
+    weekDays: [0, 1, 2, 3, 4, 5, 6]
+  }
+]
+
 export async function getAllHabits() {
   try {
-    const habits = await prisma.habit.findMany({})
+    // const habits = await prisma.habit.findMany({})
 
     return habits
   } catch (err) {

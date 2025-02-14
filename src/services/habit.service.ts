@@ -5,6 +5,7 @@ import {
   deleteHabit,
   toggleHabit
 } from './server-actions/habit.action'
+import { createNewHabitFirebase } from './firebase/habit-firebase.service'
 
 export class HabitService {
   async getAllHabits() {
@@ -18,11 +19,17 @@ export class HabitService {
 
     const { title, weekDays } = input
 
-    await createNewHabit({
+    await createNewHabitFirebase({
       title,
       weekDays,
-      today
+      today,
+      userId: '1'
     })
+    // await createNewHabit({
+    //   title,
+    //   weekDays,
+    //   today
+    // })
   }
 
   async toggleHabit(habitId: string) {
