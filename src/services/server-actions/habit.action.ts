@@ -1,6 +1,6 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
+import { api } from '@/lib/axios'
 
 interface ICreateNewHabit {
   today: Date
@@ -35,7 +35,9 @@ const habits: Habit[] = [
 export async function getAllHabits() {
   try {
     // const habits = await prisma.habit.findMany({})
+    // const habits = await api.get('/habits')
 
+    // TODO: Essa rota não existe no servidor
     return habits
   } catch (err) {
     throw new Error(`Internal server error ${err}`)
@@ -48,90 +50,27 @@ export async function createNewHabit({
   today
 }: ICreateNewHabit) {
   try {
-    await prisma.habit.create({
-      data: {
-        title,
-        created_at: today,
-        weekDays: {
-          create: weekDays.map((weekDay) => {
-            return {
-              week_day: weekDay
-            }
-          })
-        }
-      }
+    await api.post('/habits', {
+      title,
+      created_at: today,
+      weekDays
     })
 
     return { message: 'Created sucessfully!' }
   } catch (err) {
+    console.log(err)
     throw new Error(`Internal server error ${err}`)
   }
 }
 
 export async function toggleHabit({ habitID, today }: IToggleHabit) {
-  let day = await prisma.day.findUnique({
-    where: {
-      date: today
-    }
-  })
 
-  if (!day) {
-    day = await prisma.day.create({
-      data: {
-        date: today
-      }
-    })
-  }
-
-  const dayHabit = await prisma.dayHabit.findUnique({
-    where: {
-      day_id_habit_id: {
-        day_id: day.id,
-        habit_id: habitID
-      }
-    }
-  })
-
-  // if there's completed habit
-  if (dayHabit) {
-    // i need to uncomplete this habit
-    await prisma.dayHabit.delete({
-      where: {
-        id: dayHabit.id
-      }
-    })
-  } else {
-    // if there ins't
-    // i must complete it
-    await prisma.dayHabit.create({
-      data: {
-        day_id: day.id,
-        habit_id: habitID
-      }
-    })
-  }
 
   return { message: 'Updated sucessfully' }
 }
 
 export async function deleteHabit(habitID: string) {
-  await prisma.habitWeekDays.deleteMany({
-    where: {
-      habit_id: habitID
-    }
-  })
 
-  await prisma.dayHabit.deleteMany({
-    where: {
-      habit_id: habitID
-    }
-  })
-
-  await prisma.habit.delete({
-    where: {
-      id: habitID
-    }
-  })
 
   return { message: 'Updated sucessfully' }
 }

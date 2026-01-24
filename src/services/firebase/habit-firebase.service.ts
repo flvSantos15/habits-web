@@ -1,8 +1,7 @@
 import { fireStoreDb } from '@/config/firebase'
 import {
-  getFirestore,
-  collection,
   addDoc,
+  collection,
   doc,
   setDoc
 } from 'firebase/firestore'
@@ -20,7 +19,7 @@ interface IToggleHabit {
   today: Date
 }
 
-export async function getAllHabits() {}
+export async function getAllHabits() { }
 
 export async function createNewHabitFirebase({
   title,
@@ -47,9 +46,7 @@ export async function createNewHabitFirebase({
       newHabitData.id
     )
 
-    console.log('antes')
     const result = await setDoc(habitCollectionReference, newHabitData)
-    console.log('depois', result)
 
     const dataWithAmountOfNotes = { ...newHabitData, amountOfNotes: 0 }
 
@@ -61,8 +58,6 @@ export async function createNewHabitFirebase({
       })
     }
 
-    console.log('Fim')
-
     return dataWithAmountOfNotes
   } catch (error) {
     console.log('error', error)
@@ -70,6 +65,6 @@ export async function createNewHabitFirebase({
   }
 }
 
-export async function toggleHabit({ habitID, today }: IToggleHabit) {}
+export async function toggleHabit({ habitID, today }: IToggleHabit) { }
 
-export async function deleteHabit(habitID: string) {}
+export async function deleteHabit(habitID: string) { }

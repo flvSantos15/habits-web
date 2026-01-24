@@ -1,11 +1,10 @@
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import {
-  getAllHabits,
   createNewHabit,
   deleteHabit,
+  getAllHabits,
   toggleHabit
-} from './server-actions/habit.action'
-import { createNewHabitFirebase } from './firebase/habit-firebase.service'
+} from './server-actions/habit.action';
 
 export class HabitService {
   async getAllHabits() {
@@ -19,17 +18,11 @@ export class HabitService {
 
     const { title, weekDays } = input
 
-    await createNewHabitFirebase({
+    await createNewHabit({
       title,
       weekDays,
-      today,
-      userId: '1'
+      today
     })
-    // await createNewHabit({
-    //   title,
-    //   weekDays,
-    //   today
-    // })
   }
 
   async toggleHabit(habitId: string) {

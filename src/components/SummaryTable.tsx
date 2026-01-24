@@ -2,8 +2,8 @@ import dayjs from 'dayjs'
 
 import { generateDatesFromYearBeginning } from '../utils/generate-dates-from-year-beginning'
 
-import { HabitDay } from './HabitDay'
 import { SummaryService } from '@/services/summary.service'
+import { HabitDay } from './HabitDay'
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 
@@ -33,7 +33,7 @@ export async function SummaryTable() {
       </div>
 
       {/* TODO: change this scroll for the scroll comming from radix @radix-ui/react-scroll-area */}
-      <div className="max-w-full overflow-x-scroll">
+      <div className="max-w-full overflow-x-auto">
         <div className="grid grid-rows-7 grid-flow-col gap-3">
           {habits.length > 0 &&
             summaryDates.map((date) => {

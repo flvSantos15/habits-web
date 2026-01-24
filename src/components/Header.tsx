@@ -6,8 +6,8 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 import { Plus, X } from 'phosphor-react'
 
-import { NewHabitForm } from './NewHabitForm'
 import { Logo } from './Logo'
+import { NewHabitForm } from './NewHabitForm'
 
 export function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -21,8 +21,8 @@ export function Header() {
   }
 
   return (
-    <div className="w-full mx-auto px-1 flex items-center justify-end">
-      {/* <Logo /> */}
+    <div className="w-full mx-auto px-1 flex items-center justify-between">
+      <Logo />
 
       <Dialog.Root open={isModalOpen}>
         <Dialog.Trigger

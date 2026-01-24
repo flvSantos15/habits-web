@@ -1,8 +1,6 @@
 import {
-  User,
-  signInWithPopup,
   GoogleAuthProvider,
-  CustomParameters
+  signInWithPopup
 } from 'firebase/auth'
 // import {
 //   doc,
@@ -16,7 +14,7 @@ import {
 //   serverTimestamp,
 //   onSnapshot
 // } from 'firebase/firestore'
-import { db, auth, googleProvider } from '@/config/firebase'
+import { auth, googleProvider } from '@/config/firebase'
 
 // const createGoogleAuthProvider = (scopes?: string[], customOAuthParameters?: CustomParameters) => {
 //   const provider = new GoogleAuthProvider();
