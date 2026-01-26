@@ -1,3 +1,5 @@
+'use client'
+
 import { HabitService } from '@/services/habit.service'
 
 import { HabitItem } from './HabitItem'
@@ -29,7 +31,7 @@ export async function HabitList() {
               key={habit.id}
               id={habit.id}
               name={habit.title}
-              onRemoveTask={() => handleDeleteHabit(habit.id)}
+              onRemoveTask={handleDeleteHabit}
             />
           )
         })}

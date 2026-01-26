@@ -15,7 +15,7 @@ export default function ConnectCalendar() {
   }
 
   return (
-    <div className="">
+    <div>
       <header>
         <h2>Conecte sua conta!</h2>
         <h4>

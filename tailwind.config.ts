@@ -66,10 +66,6 @@ const config: Config = {
           800: '#8c3320',
           900: '#6b2718'
         }
-      },
-
-      gridTemplateRows: {
-        7: 'repeat(7, minmax(0, 1fr))'
       }
     }
   },

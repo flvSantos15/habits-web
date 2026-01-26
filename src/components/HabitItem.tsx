@@ -1,13 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import * as Dialog from '@radix-ui/react-dialog'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
+import * as Dialog from '@radix-ui/react-dialog'
+import { useState } from 'react'
 
 import { EditHabitForm } from './EditHabitForm'
 
 import { PencilSimple, Trash, X } from 'phosphor-react'
-import { RemoveHabit } from './RemoveHabitModal'
 
 interface TodoItemProps {
   id: string
