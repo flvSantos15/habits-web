@@ -7,11 +7,11 @@
  */
 
 import { ArrowRight } from 'phosphor-react'
-import { signIn } from '@/services/firebase/auth'
+// import { signIn } from '@/services/firebase/auth'
 
 export default function ConnectCalendar() {
   const handleAuthenticate = async () => {
-    await signIn()
+    // await signIn()
   }
 
   return (
