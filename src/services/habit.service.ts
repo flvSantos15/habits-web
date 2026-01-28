@@ -8,7 +8,7 @@ import {
 
 export class HabitService {
   async getAllHabits() {
-    const data = await getAllHabits()
+    const { data } = await getAllHabits()
 
     return data
   }
