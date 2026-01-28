@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { useEffect, useState } from 'react'
+import { DayService } from '@/services/day.service'
+import { HabitService } from '@/services/habit.service'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import dayjs from 'dayjs'
 import { Check } from 'phosphor-react'
-import { DayService } from '@/services/day.service'
-import { HabitService } from '@/services/habit.service'
+import { useEffect, useState } from 'react'
 
 type TPossibleHabits = {
   id: string
