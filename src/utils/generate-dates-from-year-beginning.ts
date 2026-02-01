@@ -1,7 +1,8 @@
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
+import { dayjs } from '@/lib/dayjs'
 
 export function generateDatesFromYearBeginning() {
-  const firstDayOfTheYear = dayjs().startOf('year')
+  const firstDayOfTheYear = dayjs().utc().startOf('year')
   const today = new Date()
 
   const weekDay = firstDayOfTheYear.get("day")
