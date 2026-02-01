@@ -10,7 +10,6 @@ interface ICreateNewHabit {
 
 interface IToggleHabit {
   habitID: string
-  today: Date
 }
 
 type Habit = Partial<ICreateNewHabit> & {
@@ -49,9 +48,14 @@ export async function createNewHabit({
 }
 
 export async function toggleHabit({ habitID }: IToggleHabit) {
-  await api.patch(`/habits/:${habitID}/toggle`)
+  try {
+    await api.patch(`/habits/${habitID}/toggle`, {})
 
-  return { message: 'Updated sucessfully' }
+    return { message: 'Updated sucessfully' }
+  } catch (error) {
+    console.error(error)
+    return { message: error?.data || 'Erro interno' }
+  }
 }
 
 export async function deleteHabit(habitID: string) {

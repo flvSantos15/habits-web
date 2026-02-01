@@ -26,9 +26,7 @@ export class HabitService {
   }
 
   async toggleHabit(habitId: string) {
-    const today = dayjs().startOf('day').toDate()
-
-    await toggleHabit({ habitID: habitId, today })
+    await toggleHabit({ habitID: habitId })
   }
 
   async deleteHabit(habitID: string) {
