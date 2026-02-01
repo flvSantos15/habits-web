@@ -9,7 +9,7 @@ const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 
 const summaryDates = generateDatesFromYearBeginning()
 
-const minimunSummaryDatesSize = 18 * 7 // 18 weeks
+const minimunSummaryDatesSize = 24 * 7 // 24 weeks
 const amountOfDaysToFill = minimunSummaryDatesSize - summaryDates.length
 
 export async function SummaryTable() {
