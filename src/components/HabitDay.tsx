@@ -4,13 +4,13 @@ import * as Popover from '@radix-ui/react-popover'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 
-import { ProgressBar } from './ProgressBar'
 import { PossibleHabitsList } from './PossibleHabitsList'
+import { ProgressBar } from './ProgressBar'
 
 import { useState } from 'react'
 
 interface HabitDayProps {
-  date: Date
+  date: string
   defaultCompleted?: number
   amount?: number
 }

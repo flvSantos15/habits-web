@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import { dayjs } from '@/lib/dayjs'
 
 import { generateDatesFromYearBeginning } from '../utils/generate-dates-from-year-beginning'
 
@@ -40,7 +40,9 @@ export async function SummaryTable() {
               const dayInSummary = habits.find((day) => {
                 // o isSame checa tudo y-m-d-h-m-s-mm
                 // qnd passo o 'day', ele para no day
-                return dayjs(date).isSame(day.date, 'day')
+                const dateToCompare = dayjs(day.date).format('YYYY/MM/DD')
+                return date === dateToCompare
+                // return dayjs(date).isSame(day.date, 'day')
               })
 
               return (

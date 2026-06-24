@@ -2,7 +2,7 @@
 import { dayjs } from '@/lib/dayjs'
 
 export function generateDatesFromYearBeginning() {
-  const firstDayOfTheYear = dayjs().utc().startOf('year')
+  const firstDayOfTheYear = dayjs().startOf('year')
   const today = new Date()
 
   const weekDay = firstDayOfTheYear.get("day")
@@ -13,7 +13,8 @@ export function generateDatesFromYearBeginning() {
   let compareDate = firstDayOfTheYear.subtract(daysToAddUntilSunday, 'day')
 
   while (compareDate.isBefore(today)) {
-    dates.push(compareDate.toDate())
+    const date = compareDate.format('YYYY/MM/DD')
+    dates.push(date)
     compareDate = compareDate.add(1, 'day')
   }
 

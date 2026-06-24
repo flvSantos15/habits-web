@@ -20,7 +20,7 @@ interface IHabits {
 }
 
 interface HabitsListProps {
-  date: Date
+  date: string
   onCompletedChanged: (completed: number) => void
 }
 
@@ -34,7 +34,7 @@ export function PossibleHabitsList({
   const [habitsInfo, setHabitsInfo] = useState<IHabits>()
 
   const getDaysData = async () => {
-    const data = await getDays(date.toISOString())
+    const data = await getDays(date)
 
     setHabitsInfo(data)
   }
